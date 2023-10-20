@@ -12,14 +12,14 @@ class User(AbstractBaseUser):
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     created_time = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="images/Users")
+    image = models.ImageField(upload_to="images/Users", null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     objects = UserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "first_name", "last_name", "date_of_birth"]
+    REQUIRED_FIELDS = ["username", "first_name", "last_name", "date_of_birth", "image"]
 
     def __str__(self):
         return f"{self.username} - {self.email}"
