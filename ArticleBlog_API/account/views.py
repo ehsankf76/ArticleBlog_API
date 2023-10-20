@@ -9,5 +9,5 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing user instances.
     """
+    queryset = User.objects.all().order_by("-created_time")
     serializer_class = UserSerializer
-    queryset = User.objects.all()
