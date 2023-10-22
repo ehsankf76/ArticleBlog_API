@@ -12,7 +12,7 @@ class User(AbstractBaseUser):
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     created_time = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="images/Users", null=True)
+    image = models.ImageField(upload_to="images/Users", null=True, blank=True)
     is_author = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

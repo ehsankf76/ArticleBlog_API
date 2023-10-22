@@ -1,7 +1,13 @@
 from django.contrib import admin
 
-from .models import Category
+from . import models
 
 
 
-admin.site.register(Category)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'last_update')
+    list_filter = ('create_time', 'last_update')
+    search_fields = ('title', 'author', 'category')
+
+admin.site.register(models.Category)
+admin.site.register(models.Article, ArticleAdmin)
