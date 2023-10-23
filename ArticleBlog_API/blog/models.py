@@ -34,3 +34,15 @@ class Article(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Article, self).save(*args, **kwargs)
+
+
+class Comment(models.Model):
+    text = models.TextField()
+    create_time = models.DateField(auto_now_add=True)
+    star = models.IntegerField(max_length=2)
+
+    writer = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.writer} - {self.text[:20]}"
