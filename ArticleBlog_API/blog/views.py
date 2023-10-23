@@ -7,10 +7,6 @@ from rest_framework import generics
 
 
 
-class ArticleListAPIView(generics.ListAPIView):
-    queryset = models.Article.objects.all()
-    serializer_class = serializers.ArticleSerializer
-
 class CategoryArticleListAPIView(generics.ListAPIView):
     serializer_class = serializers.ArticleSerializer
 
@@ -25,12 +21,13 @@ class AuthorArticleListAPIView(generics.ListAPIView):
         author = self.kwargs['slug']
         return models.Article.objects.filter(author__slug=author)
 
-# class ArticleViewSet(viewsets.ModelViewSet):
-#     """
-#     A simple ViewSet for viewing and editing Articles.
-#     """
-#     queryset = models.Article.objects.all()
-#     serializer_class = serializers.ArticleSerializer
+class ArticleViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing Articles.
+    """
+    queryset = models.Article.objects.all()
+    serializer_class = serializers.ArticleSerializer
+    lookup_field = 'slug'
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -39,6 +36,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
+    lookup_field = 'slug'
 
 
 class CommentViewSet(viewsets.ModelViewSet):

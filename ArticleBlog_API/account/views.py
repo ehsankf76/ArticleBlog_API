@@ -11,3 +11,4 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by("-created_time")
     serializer_class = UserSerializer
+    lookup_field = 'slug'
