@@ -21,6 +21,7 @@ class Category(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=50, unique=True)
     slug = models.CharField(max_length=50, unique=True, editable=False)
+    content = models.TextField(blank=True)
     create_time = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to="images/Articles", null=True)
@@ -39,7 +40,7 @@ class Article(models.Model):
 class Comment(models.Model):
     text = models.TextField()
     create_time = models.DateField(auto_now_add=True)
-    star = models.IntegerField(max_length=2)
+    star = models.IntegerField()
 
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)

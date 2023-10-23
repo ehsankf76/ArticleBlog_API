@@ -11,8 +11,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(models.Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_filter = ('article')
+    list_filter = ('article', )
 
 admin.site.register(models.Category)
 admin.site.register(models.Article, ArticleAdmin)
-admin.site.register(models.Comment)

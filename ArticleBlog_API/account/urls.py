@@ -10,5 +10,5 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 router = DefaultRouter()
-router.register('users', UserViewSet, basename='users')
+router.register('authors', UserViewSet, basename='authors')
 urlpatterns += router.urls
