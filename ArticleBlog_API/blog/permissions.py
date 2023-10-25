@@ -1,4 +1,5 @@
 from rest_framework import permissions
+from rest_framework.exceptions import PermissionDenied
 
 
 
@@ -6,7 +7,6 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
     message = 'Sign in as an author to be able to write an article for us.'
 
     def has_permission(self, request, view):
-        print(request.user.is_author)
         if not request.user.is_author:
             # Allow read-only actions and comment creation
             return request.method in permissions.SAFE_METHODS
@@ -21,7 +21,10 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
             return True
 
         # Instance must have an attribute named `owner`.
-        return obj.author == request.user
+        if obj.author == request.user:
+            return True
+        
+        raise PermissionDenied("Sorry! Only the writer of this article can update it.")
     
 
 class IsAdminOrReadOnly(permissions.BasePermission):
@@ -32,4 +35,7 @@ class IsAdminOrReadOnly(permissions.BasePermission):
             return True
 
         # Allow write operations only for admin users
-        return request.user and request.user.is_staff
+        if request.user and request.user.is_staff:
+            return True
+
+        raise PermissionDenied("Sorry! Only admin has access to this.")
