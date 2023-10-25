@@ -16,6 +16,12 @@ class User(AbstractBaseUser):
     is_author = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    
+    # ROLE_CHOICES = (
+    #     ('reader', 'Reader'),
+    #     ('author', 'Author'),
+    # )
+    # role = models.CharField(max_length=20, choices=ROLE_CHOICES)
 
     objects = UserManager()
 

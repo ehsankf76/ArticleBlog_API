@@ -20,7 +20,7 @@ class Category(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=50, unique=True)
-    slug = models.CharField(max_length=50, unique=True, editable=False)
+    slug = models.CharField(max_length=50, unique=True)
     content = models.TextField(blank=True)
     create_time = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
