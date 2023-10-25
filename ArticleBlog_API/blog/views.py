@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from . import serializers
 from rest_framework import viewsets
 from rest_framework import generics
+from rest_framework.parsers import MultiPartParser
 
 
 
@@ -25,6 +26,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for viewing and editing Articles.
     """
+    parser_classes = (MultiPartParser,)
     queryset = models.Article.objects.all()
     serializer_class = serializers.ArticleSerializer
     lookup_field = 'slug'
