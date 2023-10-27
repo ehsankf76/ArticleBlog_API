@@ -40,7 +40,7 @@ class Article(models.Model):
 class Comment(models.Model):
     text = models.TextField()
     create_time = models.DateField(auto_now_add=True)
-    star = models.IntegerField()
+    rating = models.IntegerField(default=0, choices=[(i, str(i)) for i in range(1, 6)])
 
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
