@@ -2,8 +2,7 @@ from . import models
 from account.models import User
 from django.shortcuts import get_object_or_404
 from . import serializers
-from rest_framework import viewsets
-from rest_framework import generics
+from rest_framework import viewsets, generics, views, response
 from rest_framework.parsers import MultiPartParser
 from .permissions import IsAuthorOrReadOnly, IsAdminOrReadOnly
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -24,6 +23,12 @@ class AuthorArticleListAPIView(generics.ListAPIView):
     def get_queryset(self):
         author = self.kwargs['slug']
         return models.Article.objects.filter(author__slug=author)
+    
+class ArticleAverageRatingView(views.APIView):
+    def get(self, request, article_slug):
+        article = models.Article.objects.get(slug=article_slug)
+        average_rating = article.get_average_rating()
+        return response.Response({'average_rating': average_rating})
 
 
 class ArticleViewSet(viewsets.ModelViewSet):

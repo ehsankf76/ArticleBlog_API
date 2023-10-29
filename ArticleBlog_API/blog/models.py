@@ -29,6 +29,16 @@ class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category, related_name="articles")
 
+    def get_average_rating(self):
+        comments = self.comment_set.all()
+        if comments:
+            all_ratings = [comment.rating for comment in comments]
+            total_rating = sum(all_ratings)
+            count_rating = len(all_ratings)-all_ratings.count(0)
+            average_rating = total_rating/count_rating
+            return average_rating
+        return 0
+    
     def __str__(self):
         return self.title
 
