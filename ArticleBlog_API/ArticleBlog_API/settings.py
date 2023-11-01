@@ -51,7 +51,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
-
+# for swagger settings
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Your Project API',
     'DESCRIPTION': 'Your project description',
@@ -148,4 +148,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTHENTICATION_BACKENDS = [
+    'account.custom_auth_backend.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 AUTH_USER_MODEL = "account.User"

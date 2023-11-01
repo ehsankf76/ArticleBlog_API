@@ -8,3 +8,5 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = "__all__"
         read_only_fields = ['id', 'slug', 'create_time', 'is_admin', 'is_active']
+
+        username = serializers.CharField(field_name="username")
