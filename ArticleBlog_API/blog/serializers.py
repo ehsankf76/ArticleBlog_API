@@ -8,6 +8,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = "__all__"
         read_only_fields = ['id', 'slug', 'create_time', 'last_update', 'author']
+        
 
 
 class CategorySerializer(serializers.ModelSerializer):

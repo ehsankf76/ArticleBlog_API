@@ -6,6 +6,8 @@ from rest_framework import viewsets, generics, views, response
 from rest_framework.parsers import MultiPartParser
 from .permissions import IsAuthorOrReadOnly, IsAdminOrReadOnly
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 
@@ -24,6 +26,15 @@ class AuthorArticleListAPIView(generics.ListAPIView):
         author = self.kwargs['slug']
         return models.Article.objects.filter(author__slug=author)
     
+
+# class SearchArticleListAPIView(generics.ListAPIView):
+#     serializer_class = serializers.ArticleSerializer
+
+#     def get_queryset(self):
+#         query = self.request.GET.get('query', '')
+#         return models.Article.objects.filter(title__icontains=query)
+
+    
 class ArticleAverageRatingView(views.APIView):
     def get(self, request, article_slug):
         article = models.Article.objects.get(slug=article_slug)
@@ -41,6 +52,10 @@ class ArticleViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthorOrReadOnly]
     lookup_field = 'slug'
 
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["category", "author"]
+    search_fields = ["title",]
+    
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 

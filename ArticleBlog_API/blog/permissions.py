@@ -7,7 +7,10 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
     message = 'Sign in as an author to be able to write an article for us.'
 
     def has_permission(self, request, view):
-        if not request.user.is_author:
+        if not request.user.is_authenticated:
+            # Allow read-only actions and comment creation
+            return request.method in permissions.SAFE_METHODS
+        elif not request.user.is_author:
             # Allow read-only actions and comment creation
             return request.method in permissions.SAFE_METHODS
         elif request.user.is_author:
